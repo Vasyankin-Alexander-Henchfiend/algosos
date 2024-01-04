@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, MouseEvent } from "react";
+import React, { useState, ChangeEvent, MouseEvent, useEffect, useCallback } from "react";
 import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import { Button } from "../ui/button/button";
 import { Column } from "../ui/column/column";
@@ -15,20 +15,27 @@ export const SortingPage: React.FC = () => {
   const [currentButton, setCurrentButton] = useState<TCurrentButton>(null);
   const [sortMethod, setSortMethod] = useState<string>("Выбор");
 
-  function getRandomLenght() {
+  
+  const getRandomLenght = () => {
     return ~~(Math.random() * (17 - 3 + 1)) + 3;
   }
+  
   const generateArray = (length: number, max: number) =>
-    [...new Array(length)].map(() => Math.round(Math.random() * max));
-
-  const randomArr = () => {
+  [...new Array(length)].map(() => Math.round(Math.random() * max));
+  
+  
+  const randomArr = useCallback(() => {
     const lenght = getRandomLenght();
     const newArray = generateArray(lenght, 100).map((item) => {
       return { value: item, state: ElementStates.Default } as TColumnElement;
     });
     setArray(newArray);
     getColumns(newArray);
-  };
+  }, [])
+  
+  useEffect(() => {
+    randomArr();
+  }, [randomArr]);
 
   function getColumns(array: Array<TColumnElement>) {
     return setColumns(
