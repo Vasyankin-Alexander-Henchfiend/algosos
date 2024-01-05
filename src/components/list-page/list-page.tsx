@@ -39,7 +39,11 @@ export const ListPage: React.FC = () => {
   };
 
   const onIndexInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setInputIndexValue(event.target.valueAsNumber);
+    setInputIndexValue(
+      Number.isNaN(event.target.valueAsNumber)
+        ? undefined
+        : event.target.valueAsNumber
+    );
   };
 
   useEffect(() => {
@@ -358,7 +362,7 @@ export const ListPage: React.FC = () => {
             value={"Добавить в head"}
             isLoader={currentButton === "Добавить в head"}
             onClick={addHead}
-            disabled={!currentButton ? false : true}
+            disabled={inputNumberValue === "" || !!currentButton}
           />
           <Button
             text="Добавить в tail"
@@ -366,7 +370,7 @@ export const ListPage: React.FC = () => {
             value={"Добавить в tail"}
             isLoader={currentButton === "Добавить в tail"}
             onClick={addTail}
-            disabled={!currentButton ? false : true}
+            disabled={inputNumberValue === "" || !!currentButton}
           />
           <Button
             text="Удалить из head"
@@ -374,7 +378,7 @@ export const ListPage: React.FC = () => {
             value={"Удалить из head"}
             isLoader={currentButton === "Удалить из head"}
             onClick={deleteHead}
-            disabled={!currentButton ? false : true}
+            disabled={!!currentButton}
           />
           <Button
             text="Удалить из tail"
@@ -382,7 +386,7 @@ export const ListPage: React.FC = () => {
             value={"Удалить из tail"}
             isLoader={currentButton === "Удалить из tail"}
             onClick={deleteTail}
-            disabled={!currentButton ? false : true}
+            disabled={!!currentButton}
           />
         </div>
         <div className={styles[`button-wrapper`]}>
@@ -390,6 +394,7 @@ export const ListPage: React.FC = () => {
             type="number"
             placeholder="введите индекс"
             max={linkedList.current.toArray().length - 1}
+            min={0}
             value={inputIndexValue ?? ""}
             onChange={onIndexInputChange}
             extraClass={styles.input}
@@ -401,7 +406,12 @@ export const ListPage: React.FC = () => {
             value={"Добавить по индексу"}
             onClick={addByIndex}
             linkedList="big"
-            disabled={!currentButton ? false : true}
+            disabled={
+              inputIndexValue === undefined ||
+              inputIndexValue > linkedList.current.toArray().length - 1 ||
+              inputIndexValue < 0 ||
+              !!currentButton
+            }
           />
           <Button
             text="Удалить по индексу"
@@ -410,7 +420,12 @@ export const ListPage: React.FC = () => {
             value={"Удалить по индексу"}
             onClick={deleteByIndex}
             linkedList="big"
-            disabled={!currentButton ? false : true}
+            disabled={
+              inputIndexValue === undefined ||
+              inputIndexValue > linkedList.current.toArray().length - 1 ||
+              inputIndexValue < 0 ||
+              !!currentButton
+            }
           />
         </div>
       </div>

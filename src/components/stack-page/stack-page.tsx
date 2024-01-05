@@ -1,4 +1,4 @@
-import React, { useRef, useState, ChangeEvent } from "react";
+import React, { useRef, useState, ChangeEvent, MouseEvent } from "react";
 import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import { Button } from "../ui/button/button";
 import { Input } from "../ui/input/input";
@@ -7,11 +7,13 @@ import { Circle } from "../ui/circle/circle";
 import { ElementStates } from "../../types/element-states";
 import { SHORT_DELAY_IN_MS } from "../../constants/delays";
 import { Stack } from "./stack";
+import { TCurrentButton } from "./stack-page.types";
 
 export const StackPage: React.FC = () => {
   const stack = useRef(new Stack<string>());
   const [inputValue, setInputValue] = useState<string>("");
   const [circles, setCircles] = useState<Array<JSX.Element>>();
+  const [currentButton, setCurrentButton] = useState<TCurrentButton>(null);
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
@@ -42,17 +44,21 @@ export const StackPage: React.FC = () => {
     ).finally(() => setCircles(getCircles(false)));
   }
 
-  const addNumber = async () => {
+  const addNumber = async (evt: MouseEvent<HTMLButtonElement>) => {
+    setCurrentButton(evt.currentTarget.value as TCurrentButton);
     stack.current.push(inputValue);
     setInputValue("");
     await refreshCircles();
+    setCurrentButton(null);
   };
 
-  const deleteNumber = async () => {
+  const deleteNumber = async (evt: MouseEvent<HTMLButtonElement>) => {
+    setCurrentButton(evt.currentTarget.value as TCurrentButton);
     setInputValue("");
     await refreshCircles();
     stack.current.pop();
     setCircles(getCircles(false));
+    setCurrentButton(null);
   };
 
   const clearAll = () => {
@@ -74,15 +80,17 @@ export const StackPage: React.FC = () => {
           />
           <Button
             text="Добавить"
+            value={"Добавить"}
             type="button"
-            isLoader={false}
+            isLoader={currentButton === "Добавить"}
             onClick={addNumber}
-            disabled={inputValue === "" ? true : false}
+            disabled={!inputValue}
           />
           <Button
             text="Удалить"
+            value={"Удалить"}
             type="button"
-            isLoader={false}
+            isLoader={currentButton === "Удалить"}
             onClick={deleteNumber}
           />
         </div>

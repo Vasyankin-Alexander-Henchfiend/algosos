@@ -79,6 +79,7 @@ export const StringComponent: React.FC = () => {
           text="Развернуть"
           type="button"
           isLoader={loader}
+          disabled={!inputValue}
           onClick={onClick}
         />
       </div>

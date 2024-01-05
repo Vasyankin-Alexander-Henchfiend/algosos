@@ -4,6 +4,7 @@ import React, {
   ChangeEvent,
   useEffect,
   useCallback,
+  MouseEvent
 } from "react";
 import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import { Button } from "../ui/button/button";
@@ -13,6 +14,7 @@ import { ElementStates } from "../../types/element-states";
 import { SHORT_DELAY_IN_MS } from "../../constants/delays";
 import styles from "./queue-page.module.css";
 import { Queue } from "./queue";
+import { TCurrentButton } from "./queue-page.types";
 
 export const QueuePage: React.FC = () => {
   const queue = useRef(new Queue<string>(7));
@@ -20,6 +22,7 @@ export const QueuePage: React.FC = () => {
   const [circles, setCircles] = useState<Array<JSX.Element>>();
   const [isAddBtnClick, setIsAddBtnClick] = useState<boolean>(false);
   const [isDelBtnClick, setIsDelBtnClick] = useState<boolean>(false);
+  const [currentButton, setCurrentButton] = useState<TCurrentButton>(null);
 
   const getCircles = useCallback(() => {
     setCircles(
@@ -36,16 +39,21 @@ export const QueuePage: React.FC = () => {
                 ? "head"
                 : ""
             }
-            tail={index === queue.current.getTail() && item !== null ? "tail" : ""}
+            tail={
+              index === queue.current.getTail() && item !== null ? "tail" : ""
+            }
             state={
               (isAddBtnClick &&
-                (queue.current.storage[0] !== null || queue.current.getHead() > 0) &&
+                (queue.current.storage[0] !== null ||
+                  queue.current.getHead() > 0) &&
                 queue.current.getTail() + 1 === index) ||
               (isAddBtnClick &&
                 queue.current.getTail() === 0 &&
                 index === 0 &&
                 queue.current.storage[0] === null) ||
-              (index === queue.current.getHead() && item !== null && isDelBtnClick)
+              (index === queue.current.getHead() &&
+                item !== null &&
+                isDelBtnClick)
                 ? ElementStates.Changing
                 : ElementStates.Default
             }
@@ -68,20 +76,24 @@ export const QueuePage: React.FC = () => {
     setInputValue(event.target.value);
   };
 
-  const addNumber = async () => {
+  const addNumber = async (evt: MouseEvent<HTMLButtonElement>) => {
+    setCurrentButton(evt.currentTarget.value as TCurrentButton);
     setInputValue("");
     setIsAddBtnClick(true);
     await refreshCircles();
     setIsAddBtnClick(false);
     queue.current.enqueue(inputValue);
+    setCurrentButton(null);
   };
 
-  const deleteNumber = async () => {
+  const deleteNumber = async (evt: MouseEvent<HTMLButtonElement>) => {
+    setCurrentButton(evt.currentTarget.value as TCurrentButton);
     setInputValue("");
     setIsDelBtnClick(true);
     await refreshCircles();
     queue.current.dequeue();
     setIsDelBtnClick(false);
+    setCurrentButton(null);
   };
 
   const clearAll = () => {
@@ -103,15 +115,17 @@ export const QueuePage: React.FC = () => {
           />
           <Button
             text="Добавить"
+            value={"Добавить"}
             type="button"
-            isLoader={false}
+            isLoader={currentButton === 'Добавить'}
             onClick={addNumber}
             disabled={inputValue === ""}
           />
           <Button
             text="Удалить"
+            value={'Удалить'}
             type="button"
-            isLoader={false}
+            isLoader={currentButton === 'Удалить'}
             onClick={deleteNumber}
           />
         </div>

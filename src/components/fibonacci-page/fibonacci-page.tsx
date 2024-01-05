@@ -12,7 +12,11 @@ export const FibonacciPage: React.FC = () => {
   const [circles, setCircles] = useState<Array<JSX.Element>>();
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.valueAsNumber);
+    setInputValue(
+      Number.isNaN(event.target.valueAsNumber)
+        ? undefined
+        : event.target.valueAsNumber
+    );
   };
 
   const onClick = () => {
