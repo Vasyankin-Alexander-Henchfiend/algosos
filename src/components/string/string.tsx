@@ -6,11 +6,8 @@ import { Circle } from "../ui/circle/circle";
 import styles from "./string.module.css";
 import { ElementStates } from "../../types/element-states";
 import { DELAY_IN_MS } from "../../constants/delays";
-
-type TArrayElement = {
-  state: ElementStates;
-  value: string;
-};
+import { TArrayElement } from "./string.types";
+import { sortArray } from "./utils";
 
 export const StringComponent: React.FC = () => {
   const [inputValue, setInputValue] = useState<string>("");
@@ -36,7 +33,7 @@ export const StringComponent: React.FC = () => {
     });
     setInputValue("");
     getCircles(array);
-    sortArray(array).finally(() => {
+    sortArray(array, refreshData).finally(() => {
       setLoader(false);
     });
   };
@@ -44,25 +41,6 @@ export const StringComponent: React.FC = () => {
   async function refreshData(array: Array<TArrayElement>) {
     getCircles(array);
     await new Promise((resolve) => setTimeout(resolve, DELAY_IN_MS));
-  }
-
-  async function sortArray(array: Array<TArrayElement>) {
-    let start = 0;
-    let end = array?.length - 1;
-    while (start <= end) {
-      const startValue: TArrayElement = array[start];
-      const endValue: TArrayElement = array[end];
-      startValue.state = ElementStates.Changing;
-      endValue.state = ElementStates.Changing;
-      await refreshData(array);
-      array[start] = endValue;
-      array[end] = startValue;
-      startValue.state = ElementStates.Modified;
-      endValue.state = ElementStates.Modified;
-      start++;
-      end--;
-    }
-    await refreshData(array);
   }
 
   return (
