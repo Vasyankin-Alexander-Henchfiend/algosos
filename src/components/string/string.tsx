@@ -52,6 +52,7 @@ export const StringComponent: React.FC = () => {
           maxLength={11}
           value={inputValue}
           onChange={onChange}
+          data-testid="input-string"
         ></Input>
         <Button
           text="Развернуть"
@@ -59,6 +60,7 @@ export const StringComponent: React.FC = () => {
           isLoader={loader}
           disabled={!inputValue}
           onClick={onClick}
+          data-testid="button-string"
         />
       </div>
       <div className={styles[`circle-wrapper`]}>{circles}</div>
