@@ -72,6 +72,7 @@ export const StackPage: React.FC = () => {
       <div className={styles[`main-wrapper`]}>
         <div className={styles[`second-wrapper`]}>
           <Input
+            data-testid="input-stack"
             type="text"
             isLimitText={true}
             maxLength={4}
@@ -79,6 +80,7 @@ export const StackPage: React.FC = () => {
             onChange={onChange}
           />
           <Button
+            data-testid="add-button-stack"
             text="Добавить"
             value={"Добавить"}
             type="button"
@@ -87,6 +89,7 @@ export const StackPage: React.FC = () => {
             disabled={!inputValue}
           />
           <Button
+            data-testid="delete-button-stack"
             text="Удалить"
             value={"Удалить"}
             type="button"
@@ -95,6 +98,7 @@ export const StackPage: React.FC = () => {
           />
         </div>
         <Button
+          data-testid="clear-all-button-stack"
           text="Очистить"
           type="button"
           isLoader={false}

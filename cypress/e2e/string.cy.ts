@@ -20,6 +20,7 @@ describe("Тестирование компонента Строка", () => {
   it("строка разворачивается корректно", () => {
     cy.get(INPUT_STRING_PAGE).type("1234");
     cy.get(BUTTON_STRING_PAGE).click().should("be.disabled");
+    cy.get(INPUT_STRING_PAGE).should("be.empty");
     cy.get("[class*=circle_content]").as("array");
 
     cy.get("@array").should("have.length", 4);
