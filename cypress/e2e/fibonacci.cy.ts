@@ -11,11 +11,13 @@ describe("Тестирование компонента Последовател
   beforeEach(() => {
     cy.visit(FIBONACCI_PAGE);
   });
+
   it("если в инпуте пусто, то кнопка добавления недоступна", () => {
     cy.get(BUTTON_FIBONACCI_PAGE).should("be.disabled");
     cy.get(INPUT_FIBONACCI_PAGE).type("3");
     cy.get(BUTTON_FIBONACCI_PAGE).should("not.be.disabled");
   });
+
   it("числа генерируются корректно", () => {
     cy.get(INPUT_FIBONACCI_PAGE).type("3");
     cy.get(BUTTON_FIBONACCI_PAGE)

@@ -348,6 +348,7 @@ export const ListPage: React.FC = () => {
       <div className={styles[`controls-container`]}>
         <div className={styles[`button-wrapper`]}>
           <Input
+            data-testid="number-input-list"
             type="text"
             placeholder="введите значение"
             isLimitText={true}
@@ -357,6 +358,7 @@ export const ListPage: React.FC = () => {
             extraClass={styles.input}
           />
           <Button
+            data-testid="add-head-button-list"
             text="Добавить в head"
             type="button"
             value={"Добавить в head"}
@@ -365,6 +367,7 @@ export const ListPage: React.FC = () => {
             disabled={inputNumberValue === "" || !!currentButton}
           />
           <Button
+            data-testid="add-tail-button-list"
             text="Добавить в tail"
             type="button"
             value={"Добавить в tail"}
@@ -373,6 +376,7 @@ export const ListPage: React.FC = () => {
             disabled={inputNumberValue === "" || !!currentButton}
           />
           <Button
+            data-testid="delete-head-button-list"
             text="Удалить из head"
             type="button"
             value={"Удалить из head"}
@@ -381,6 +385,7 @@ export const ListPage: React.FC = () => {
             disabled={!!currentButton}
           />
           <Button
+            data-testid="delete-tail-button-list"
             text="Удалить из tail"
             type="button"
             value={"Удалить из tail"}
@@ -391,6 +396,7 @@ export const ListPage: React.FC = () => {
         </div>
         <div className={styles[`button-wrapper`]}>
           <Input
+            data-testid="index-input-list"
             type="number"
             placeholder="введите индекс"
             max={linkedList.current.toArray().length - 1}
@@ -400,6 +406,7 @@ export const ListPage: React.FC = () => {
             extraClass={styles.input}
           />
           <Button
+            data-testid="add-by-index-button-list"
             text="Добавить по индексу"
             type="button"
             isLoader={currentButton === "Добавить по индексу"}
@@ -414,6 +421,7 @@ export const ListPage: React.FC = () => {
             }
           />
           <Button
+            data-testid="delete-by-index-button-list"
             text="Удалить по индексу"
             type="button"
             isLoader={currentButton === "Удалить по индексу"}

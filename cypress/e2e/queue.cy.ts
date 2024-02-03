@@ -61,8 +61,18 @@ describe("Тестирование компонента Очередь", () => {
       cy.get("[class*=circle_content]").should("have.length", 7).as("array");
     }
     cy.wait(SHORT_DELAY_IN_MS);
-    cy.get(DELETE_BUTTON_QUEUE_PAGE).should("not.be.disabled").click();
+    cy.get(DELETE_BUTTON_QUEUE_PAGE)
+      .should("not.be.disabled")
+      .click()
+      .should("be.disabled");
     cy.get("[class*=circle_content]").should("have.length", 7).as("array");
+    cy.get("@array").eq(0).as("firstElement");
+    cy.get("@array").eq(1).as("secondElement");
+    cy.get("@firstElement").children("[class*=circle_changing]");
+    cy.wait(SHORT_DELAY_IN_MS);
+    cy.get(DELETE_BUTTON_QUEUE_PAGE).should("not.be.disabled");
+    cy.get("@secondElement").children("[class*=circle_default]");
+    cy.get("@secondElement").contains("head");
   });
 
   it("кнопка «Очистить», отрабатывает корректно", () => {

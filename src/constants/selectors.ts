@@ -32,5 +32,22 @@ export const DELETE_BUTTON_QUEUE_PAGE = '[data-testid="delete-button-queue"]';
 export const CLEAR_ALL_BUTTON_QUEUE_PAGE =
   '[data-testid="clear-all-button-queue"]';
 
-// export const  = '';
-// export const  = '';
+export const NUMBER_INPUT_LIST_PAGE = '[data-testid="number-input-list"]';
+export const INDEX_INPUT_LIST_PAGE = '[data-testid="index-input-list"]';
+export const ADD_HEAD_BUTTON_LIST_PAGE = '[data-testid="add-head-button-list"]';
+export const ADD_TAIL_BUTTON_LIST_PAGE = '[data-testid="add-tail-button-list"]';
+export const DELETE_HEAD_BUTTON_LIST_PAGE =
+  '[data-testid="delete-head-button-list"]';
+export const DELETE_TAIL_BUTTON_LIST_PAGE =
+  '[data-testid="delete-tail-button-list"]';
+export const ADD_BY_INDEX_BUTTON_LIST_PAGE =
+  '[data-testid="add-by-index-button-list"]';
+export const DELETE_BY_INDEX_BUTTON_LIST_PAGE =
+  '[data-testid="delete-by-index-button-list"]';
+
+export const CIRCLE_HEAD = "[class*=circle_head__]";
+export const CIRCLE_TAIL = "[class*=circle_tail60__]";
+export const CIRCLE_BORDER_DEFAULT = "[class*=circle_default]";
+export const CIRCLE_BORDER_CHANGING = "[class*=circle_changing]";
+export const CIRCLE_BORDER_MODIFIED = "[class*=circle_modified]";
+export const SMALL_CIRCLE = "[class*=circle_content__]";
