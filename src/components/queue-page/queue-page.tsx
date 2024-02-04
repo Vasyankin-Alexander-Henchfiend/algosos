@@ -4,7 +4,7 @@ import React, {
   ChangeEvent,
   useEffect,
   useCallback,
-  MouseEvent
+  MouseEvent,
 } from "react";
 import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import { Button } from "../ui/button/button";
@@ -107,6 +107,7 @@ export const QueuePage: React.FC = () => {
       <div className={styles[`main-wrapper`]}>
         <div className={styles[`second-wrapper`]}>
           <Input
+            data-testid="input-queue"
             type="text"
             isLimitText={true}
             maxLength={4}
@@ -114,22 +115,25 @@ export const QueuePage: React.FC = () => {
             onChange={onChange}
           />
           <Button
+            data-testid="add-button-queue"
             text="Добавить"
             value={"Добавить"}
             type="button"
-            isLoader={currentButton === 'Добавить'}
+            isLoader={currentButton === "Добавить"}
             onClick={addNumber}
             disabled={inputValue === ""}
           />
           <Button
+            data-testid="delete-button-queue"
             text="Удалить"
-            value={'Удалить'}
+            value={"Удалить"}
             type="button"
-            isLoader={currentButton === 'Удалить'}
+            isLoader={currentButton === "Удалить"}
             onClick={deleteNumber}
           />
         </div>
         <Button
+          data-testid="clear-all-button-queue"
           text="Очистить"
           type="button"
           isLoader={false}
