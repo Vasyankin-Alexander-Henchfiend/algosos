@@ -17,14 +17,13 @@ import {
   LIST_PAGE,
   NUMBER_INPUT_LIST_PAGE,
   SMALL_CIRCLE,
+  CIRCLE_WITH_ATRIBUT,
 } from "../../src/constants/selectors";
 
 describe("Тестирование компонента Связный список", () => {
   beforeEach(() => {
     cy.visit(LIST_PAGE);
-    cy.get("[class*=list-page_circle-wrapper__]")
-      .should("have.length", 4)
-      .as("array");
+    cy.get(CIRCLE_WITH_ATRIBUT).should("have.length", 4).as("array");
     cy.get("@array").eq(0).as("firstElement");
     cy.get("@array").eq(3).as("lastElement");
   });
@@ -110,7 +109,7 @@ describe("Тестирование компонента Связный спис�
     cy.get("@smallCircle").contains("123");
     cy.get("@smallCircle").children(CIRCLE_BORDER_CHANGING);
     cy.wait(SHORT_DELAY_IN_MS);
-    cy.get("[class*=list-page_circle-wrapper__]").eq(4).as("newElement");
+    cy.get(CIRCLE_WITH_ATRIBUT).eq(4).as("newElement");
     cy.get("@newElement").contains("tail");
     cy.get("@newElement").contains("123");
     cy.get("@newElement").find(SMALL_CIRCLE).children(CIRCLE_BORDER_MODIFIED);
@@ -155,9 +154,7 @@ describe("Тестирование компонента Связный спис�
     cy.get(INDEX_INPUT_LIST_PAGE).should("be.empty");
     cy.get(NUMBER_INPUT_LIST_PAGE).should("be.empty");
 
-    cy.get("[class*=list-page_circle-wrapper__]")
-      .should("have.length", 5)
-      .as("newArray");
+    cy.get(CIRCLE_WITH_ATRIBUT).should("have.length", 5).as("newArray");
     cy.get("@newArray").each(($el, index) => {
       if (index === 3) {
         cy.wrap($el).should("contain.text", "123");
@@ -202,7 +199,7 @@ describe("Тестирование компонента Связный спис�
     cy.get("@smallCircle").contains("0");
     cy.get("@smallCircle").children(CIRCLE_BORDER_CHANGING);
     cy.wait(SHORT_DELAY_IN_MS);
-    cy.get("[class*=list-page_circle-wrapper__]")
+    cy.get(CIRCLE_WITH_ATRIBUT)
       .should("have.length", 3)
       .eq(0)
       .as("firstElement");
@@ -230,7 +227,7 @@ describe("Тестирование компонента Связный спис�
     cy.get("@smallCircle").children(CIRCLE_BORDER_CHANGING);
     cy.wait(SHORT_DELAY_IN_MS);
 
-    cy.get("[class*=list-page_circle-wrapper__]").eq(2).as("newElement");
+    cy.get(CIRCLE_WITH_ATRIBUT).eq(2).as("newElement");
     cy.get("@newElement").contains("tail");
     cy.get("@newElement").contains("8");
     cy.get("@newElement").find(SMALL_CIRCLE).children(CIRCLE_BORDER_DEFAULT);
@@ -269,9 +266,7 @@ describe("Тестирование компонента Связный спис�
       }
     });
     cy.wait(SHORT_DELAY_IN_MS);
-    cy.get("[class*=list-page_circle-wrapper__]")
-      .should("have.length", 3)
-      .as("newArray");
+    cy.get(CIRCLE_WITH_ATRIBUT).should("have.length", 3).as("newArray");
     cy.get("@newArray").each(($el, index, list) => {
       cy.wrap($el).find(SMALL_CIRCLE).children(CIRCLE_BORDER_DEFAULT);
       if (index === 0) {

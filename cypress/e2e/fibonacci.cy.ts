@@ -5,6 +5,7 @@ import {
   BUTTON_FIBONACCI_PAGE,
   FIBONACCI_PAGE,
   INPUT_FIBONACCI_PAGE,
+  SMALL_CIRCLE,
 } from "../../src/constants/selectors";
 
 describe("Тестирование компонента Последовательность Фибоначчи", () => {
@@ -25,7 +26,7 @@ describe("Тестирование компонента Последовател
       .click()
       .should("be.disabled");
     cy.get(INPUT_FIBONACCI_PAGE).should("be.empty");
-    cy.get("[class*=circle_content]").as("array");
+    cy.get(SMALL_CIRCLE).as("array");
     for (let i = 1; i <= 4; i++) {
       cy.get("@array").should("have.length", i);
       cy.wait(DELAY_IN_MS);

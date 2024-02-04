@@ -7,6 +7,11 @@ import {
   ADD_BUTTON_QUEUE_PAGE,
   DELETE_BUTTON_QUEUE_PAGE,
   CLEAR_ALL_BUTTON_QUEUE_PAGE,
+  SMALL_CIRCLE,
+  CIRCLE_BORDER_CHANGING,
+  CIRCLE_BORDER_DEFAULT,
+  CIRCLE_HEAD,
+  CIRCLE_TAIL,
 } from "../../src/constants/selectors";
 
 describe("Тестирование компонента Очередь", () => {
@@ -28,24 +33,24 @@ describe("Тестирование компонента Очередь", () => {
         .should("not.be.disabled")
         .click()
         .should("be.disabled");
-      cy.get("[class*=circle_content]").should("have.length", 7).as("array");
+      cy.get(SMALL_CIRCLE).should("have.length", 7).as("array");
       if (i === 0) {
         cy.get("@array").eq(i).as("firstElement");
-        cy.get("@firstElement").children("[class*=circle_changing]");
+        cy.get("@firstElement").children(CIRCLE_BORDER_CHANGING);
         cy.wait(SHORT_DELAY_IN_MS);
         cy.get("@firstElement").contains("head");
         cy.get("@firstElement").contains("tail");
         cy.get("@firstElement").contains("ляля");
         cy.get("@firstElement").contains(i);
-        cy.get("@firstElement").children("[class*=circle_default]");
+        cy.get("@firstElement").children(CIRCLE_BORDER_DEFAULT);
       } else {
         cy.get("@array").eq(i).as("newElement");
-        cy.get("@newElement").children("[class*=circle_changing]");
+        cy.get("@newElement").children(CIRCLE_BORDER_CHANGING);
         cy.wait(SHORT_DELAY_IN_MS);
         cy.get("@newElement").contains("tail");
         cy.get("@newElement").contains("ляля");
         cy.get("@newElement").contains(i);
-        cy.get("@newElement").children("[class*=circle_default]");
+        cy.get("@newElement").children(CIRCLE_BORDER_DEFAULT);
       }
     }
   });
@@ -58,20 +63,20 @@ describe("Тестирование компонента Очередь", () => {
         .should("not.be.disabled")
         .click()
         .should("be.disabled");
-      cy.get("[class*=circle_content]").should("have.length", 7).as("array");
+      cy.get(SMALL_CIRCLE).should("have.length", 7).as("array");
     }
     cy.wait(SHORT_DELAY_IN_MS);
     cy.get(DELETE_BUTTON_QUEUE_PAGE)
       .should("not.be.disabled")
       .click()
       .should("be.disabled");
-    cy.get("[class*=circle_content]").should("have.length", 7).as("array");
+    cy.get(SMALL_CIRCLE).should("have.length", 7).as("array");
     cy.get("@array").eq(0).as("firstElement");
     cy.get("@array").eq(1).as("secondElement");
-    cy.get("@firstElement").children("[class*=circle_changing]");
+    cy.get("@firstElement").children(CIRCLE_BORDER_CHANGING);
     cy.wait(SHORT_DELAY_IN_MS);
     cy.get(DELETE_BUTTON_QUEUE_PAGE).should("not.be.disabled");
-    cy.get("@secondElement").children("[class*=circle_default]");
+    cy.get("@secondElement").children(CIRCLE_BORDER_DEFAULT);
     cy.get("@secondElement").contains("head");
   });
 
@@ -83,15 +88,15 @@ describe("Тестирование компонента Очередь", () => {
         .should("not.be.disabled")
         .click()
         .should("be.disabled");
-      cy.get("[class*=circle_content]").should("have.length", 7).as("array");
+      cy.get(SMALL_CIRCLE).should("have.length", 7).as("array");
     }
     cy.wait(SHORT_DELAY_IN_MS);
     cy.get(CLEAR_ALL_BUTTON_QUEUE_PAGE).should("not.be.disabled").click();
-    cy.get("[class*=circle_content]").should("have.length", 7).as("array");
+    cy.get(SMALL_CIRCLE).should("have.length", 7).as("array");
     cy.get("@array").each(($el) => {
       cy.wrap($el).should("contain.text", "");
-      cy.wrap($el).get('[class*="circle_head__"]').should("contain.text", "");
-      cy.wrap($el).get('[class*="circle_tail"]').should("contain.text", "");
+      cy.wrap($el).get(CIRCLE_HEAD).should("contain.text", "");
+      cy.wrap($el).get(CIRCLE_TAIL).should("contain.text", "");
     });
   });
 });

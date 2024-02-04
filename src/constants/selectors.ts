@@ -51,3 +51,4 @@ export const CIRCLE_BORDER_DEFAULT = "[class*=circle_default]";
 export const CIRCLE_BORDER_CHANGING = "[class*=circle_changing]";
 export const CIRCLE_BORDER_MODIFIED = "[class*=circle_modified]";
 export const SMALL_CIRCLE = "[class*=circle_content__]";
+export const CIRCLE_WITH_ATRIBUT = "[class*=list-page_circle-wrapper__]";
